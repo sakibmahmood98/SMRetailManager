@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMDataManager", "SMDataMana
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SMData", "SMData\SMData.sqlproj", "{FAB8744C-C1F3-4344-B74E-EF9DBA554D24}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMRDesktopUI", "SMRDesktopUI\SMRDesktopUI.csproj", "{F19C7633-ED16-4AB0-BAFA-82C3B0A00836}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{FAB8744C-C1F3-4344-B74E-EF9DBA554D24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FAB8744C-C1F3-4344-B74E-EF9DBA554D24}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FAB8744C-C1F3-4344-B74E-EF9DBA554D24}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{F19C7633-ED16-4AB0-BAFA-82C3B0A00836}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F19C7633-ED16-4AB0-BAFA-82C3B0A00836}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F19C7633-ED16-4AB0-BAFA-82C3B0A00836}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F19C7633-ED16-4AB0-BAFA-82C3B0A00836}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
