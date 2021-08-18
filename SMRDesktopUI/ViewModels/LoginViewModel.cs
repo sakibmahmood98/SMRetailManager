@@ -13,6 +13,8 @@ namespace SMRDesktopUI.ViewModels
         private string _userName ;
         private string _password ;
         private IAPIHelper _apiHelper;
+        private bool _isErrorVisible;
+        private string _errorMessage;
 
         public LoginViewModel(IAPIHelper apiHelper)
         {
@@ -42,6 +44,34 @@ namespace SMRDesktopUI.ViewModels
             }
         }
 
+        public bool IsErrorVisible
+        {
+            get 
+            {
+                bool output = false;
+
+                if(ErrorMessage?.Length > 0)
+                {
+                    output = true;
+                }
+                return output;  
+            }
+            
+            
+        }
+
+        public string ErrorMessage
+        {
+            get { return _errorMessage;  }
+            set
+            {
+                _errorMessage = value;
+                NotifyOfPropertyChange(() => IsErrorVisible);
+                NotifyOfPropertyChange(() => ErrorMessage);
+                
+            }
+        }
+
         public bool CanLogin
         {
             get
@@ -61,15 +91,16 @@ namespace SMRDesktopUI.ViewModels
 
         public async Task Login()
         {
-            // Console.WriteLine();
+             Console.WriteLine();
             try
             {
+                ErrorMessage = "";
                 var result = await _apiHelper.Authenticate(UserName, Password);
 
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                ErrorMessage = ex.Message;
             }
         }
     }
