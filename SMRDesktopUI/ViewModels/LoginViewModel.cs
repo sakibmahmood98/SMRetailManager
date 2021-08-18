@@ -13,7 +13,7 @@ namespace SMRDesktopUI.ViewModels
         private string _userName ;
         private string _password ;
         private IAPIHelper _apiHelper;
-        private bool _isErrorVisible;
+        //private bool _isErrorVisible;
         private string _errorMessage;
 
         public LoginViewModel(IAPIHelper apiHelper)
