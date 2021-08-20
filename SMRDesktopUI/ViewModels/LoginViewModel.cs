@@ -1,4 +1,5 @@
 ﻿using Caliburn.Micro;
+using SMRDesktopUI.EventModels;
 using SMRDesktopUI.Helpers;
 using SMRDesktopUI.Library.Api;
 using System;
@@ -16,10 +17,12 @@ namespace SMRDesktopUI.ViewModels
         private IAPIHelper _apiHelper;
         //private bool _isErrorVisible;
         private string _errorMessage;
+        private IEventAggregator _events;
 
-        public LoginViewModel(IAPIHelper apiHelper)
+        public LoginViewModel(IAPIHelper apiHelper, IEventAggregator events)
         {
             _apiHelper = apiHelper;
+            _events = events;
         }
 
         public string UserName
@@ -100,6 +103,9 @@ namespace SMRDesktopUI.ViewModels
 
                 //Capture more information about the user
                 await _apiHelper.GetLoggedInUserInfo(result.Access_Token);
+
+                await _events.PublishOnUIThreadAsync(new LogOnEventModel());
+
 
             }
             catch (Exception ex)

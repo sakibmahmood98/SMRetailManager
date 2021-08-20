@@ -23,7 +23,6 @@ namespace SMRDesktopUI.ViewModels
         }
 
 
-
         private BindingList<string> _cart;
         public BindingList<string> Cart
         {
@@ -37,14 +36,6 @@ namespace SMRDesktopUI.ViewModels
         }
 
 
-
-
-
-
-
-
-
-
         private string _itemQuantity;
 
         public string ItemQuantity
@@ -53,7 +44,7 @@ namespace SMRDesktopUI.ViewModels
             set 
             { 
                 _itemQuantity = value;
-                NotifyOfPropertyChange(() => Products);
+                NotifyOfPropertyChange(() => ItemQuantity);
             
             }
         }
