@@ -38,7 +38,18 @@
         <!-- Column 0 -->
         <TextBlock Text="Items" Grid.Row="0" Grid.Column="0" />
         <ListBox x:Name="Products" Grid.Row="1" Grid.Column="0"
-                  MinHeight="200" MinWidth="150"/>
+                  MinHeight="200" MinWidth="150">
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding ProductName}"/>
+                </DataTemplate>
+               
+            </ListBox.ItemTemplate>
+
+
+
+        </ListBox>
 
         <!-- Column 1 -->
         <StackPanel Orientation="Vertical" Grid.Column="1"
@@ -51,9 +62,6 @@
 
             <Button x:Name="RemoveFromCart" Content="Remove from Cart"
                     Padding="5"/>
-
-
-
         </StackPanel>
 
         <!-- Column 2 -->
