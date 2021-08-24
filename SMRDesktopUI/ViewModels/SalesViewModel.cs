@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using SMRDesktopUI.Library.Api;
+using SMRDesktopUI.Library.Helper;
 using SMRDesktopUI.Library.Models;
 using System;
 using System.Collections.Generic;
@@ -13,11 +14,13 @@ namespace SMRDesktopUI.ViewModels
     public class SalesViewModel : Screen
     {
         IProductEndpoint _productEndpoint;
+        IConfigHelper _configHelper;
 
 
-        public SalesViewModel(IProductEndpoint productEndpoint)
+        public SalesViewModel(IProductEndpoint productEndpoint, IConfigHelper configHelper)
         {
             _productEndpoint = productEndpoint;
+            _configHelper = configHelper;
             
         }
 
@@ -96,23 +99,49 @@ namespace SMRDesktopUI.ViewModels
         {
             get
             {
-                decimal subTotal = 0;
+                
 
-                foreach (var item in Cart)
-                {
-                    subTotal += (item.Product.RetailPrice * item.QuantityInCart);
-                }
-
-                return subTotal.ToString("C");
+                return CalculateSubTotal().ToString("C");
             }
+        }
+
+        private decimal CalculateSubTotal()
+        {
+            decimal subTotal = 0;
+
+            foreach (var item in Cart)
+            {
+                subTotal += (item.Product.RetailPrice * item.QuantityInCart);
+            }
+
+            return subTotal;
+
+        }
+
+        private decimal CalculateTax()
+        {
+            decimal taxAmount = 0;
+            decimal taxRate = _configHelper.GetTaxRate()/100;
+
+            foreach (var item in Cart)
+            {
+                if (item.Product.IsTaxable)
+                {
+                    taxAmount += (item.Product.RetailPrice * item.QuantityInCart * taxRate);
+                }
+            }
+
+            return taxAmount;
         }
 
         public string Tax
         {
             get
             {
-                //TODO - replace with calculation
-                return "$0.00";
+
+                return CalculateTax().ToString("C");
+
+                
             }
         }
 
@@ -120,8 +149,8 @@ namespace SMRDesktopUI.ViewModels
         {
             get
             {
-                //TODO - replace with calculation
-                return "$0.00";
+                decimal total = CalculateSubTotal() + CalculateTax();
+                return total.ToString("C");
             }
         }
 
@@ -167,6 +196,8 @@ namespace SMRDesktopUI.ViewModels
             SelectedProduct.QuantityInStock -= ItemQuantity;
             ItemQuantity = 1;
             NotifyOfPropertyChange(() => SubTotal);
+            NotifyOfPropertyChange(() => Tax);
+            NotifyOfPropertyChange(() => Total);
             //NotifyOfPropertyChange(() => Cart);
         }
 
@@ -184,6 +215,8 @@ namespace SMRDesktopUI.ViewModels
         public void RemoveFromCart()
         {
             NotifyOfPropertyChange(() => SubTotal);
+            NotifyOfPropertyChange(() => Tax);
+            NotifyOfPropertyChange(() => Total);
         }
 
         public bool CanCheckOut
