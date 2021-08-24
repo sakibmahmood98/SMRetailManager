@@ -6,7 +6,7 @@
     [CreateDate]   DATETIME2 (7)  DEFAULT (getutcdate()) NOT NULL,
     [LastModified] DATETIME2 (7)  DEFAULT (getutcdate()) NOT NULL,
     [RetailPrice] MONEY NOT NULL, 
-    [QuantityInStock] INT NOT NULL, 
+    [QuantityInStock] INT NOT NULL DEFAULT 1, 
     [IsTaxable] BIT NOT NULL DEFAULT 1, 
     PRIMARY KEY CLUSTERED ([Id] ASC)
 );
